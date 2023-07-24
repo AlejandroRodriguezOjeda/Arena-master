@@ -15,7 +15,8 @@ gameLoop = () => {
 
 
 // this.player.playerMovement();
-this.player.updatePosition()
+this.player.updatePosition();
+this.enemy.enemyMovement();
   requestAnimationFrame(this.gameLoop)
 }
 

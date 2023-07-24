@@ -56,6 +56,6 @@ function startGame(){
 }
 
 
-
+// event listener de los botones
 
 startBtnNode.addEventListener("click",startGame)
