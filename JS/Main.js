@@ -1,18 +1,21 @@
 const startBtnNode = document.querySelector("#start-btn")
+const restartBtnNode = document.querySelector("#restart-btn")
 const splashScreenNode = document.querySelector("#splash-screen")
 const gameScreenNode = document.querySelector("#game-Screen")
 const gameBoxNode = document.querySelector("#game-Box")
+const gameoverScreenNode = document.querySelector("#gameover-screen")
 
 let gameObj;
-let isGameOn = false
+// let isGameOn = false
 
 function startGame(){
     splashScreenNode.style.display = "none"
     gameScreenNode.style.display = "flex"
 
-    let gameObj = new Game()
+    
+    gameObj = new Game()
     gameObj.gameLoop()
-    isGameOn = true;
+    // isGameOn = true;
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "ArrowLeft") {
@@ -56,6 +59,11 @@ function startGame(){
 }
 
 
+
 // event listener de los botones
 
 startBtnNode.addEventListener("click",startGame)
+restartBtnNode.addEventListener("click",()=>{
+   gameBoxNode.innerHTML = '';
+   startGame();
+})

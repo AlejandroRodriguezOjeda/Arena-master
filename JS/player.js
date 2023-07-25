@@ -30,10 +30,16 @@ this.node.style.left = `${this.x}px`
 updatePosition = () => {
   if (this.isPlayerMovingLeft) {
     this.x -= this.movementSpeed;
+    if(this.x < 0){
+      this.x = 0
+    }
   }
 
   if (this.isPlayerMovingRight) {
     this.x += this.movementSpeed;
+    if(this.x > gameBoxNode.offsetWidth - this.w){
+      this.x = gameBoxNode.offsetWidth - this.w;
+    }
   }
 
   if(this.isPlayermovingUp){

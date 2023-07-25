@@ -19,7 +19,10 @@ class Enemy {
     this.node.style.position = "absolute";
     this.node.style.top = `${this.y}px`;
     this.node.style.left = `${this.x}px`;
-  }
+
+    // this.shootArrows = this.shootArrows.bind(this)
+  
+}
 
   enemyMovement = ()=>{
     if(this.isEnemyMovingRight === true){
@@ -38,6 +41,25 @@ class Enemy {
     this.isEnemyMovingRight = !this.isEnemyMovingRight;
     // this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
   }
+
+
+//   shootArrows = () =>{
+//     const numberOfArrows = 5;
+//     const ArrowSpeed = 5;
+//     const ArrowSpacing = this.w / (numberOfArrows - 1);
+//     let startX = this.x + this.w / 2 - (ArrowSpacing * (numberOfArrows - 1)) / 2;
+
+
+// for (let i = 0; i < numberOfArrows; i++) {
+//     const arrow = new Arrow();
+//     arrow.x = startX + i * ArrowSpacing;
+//     arrow.y = this.y + this.h / 2 - arrow.h / 2;
+//     arrow.speedX = ArrowSpeed;
+//     arrow.speedY = 0;
+//     gameBoxNode.appendChild(arrow.node);
+
+// }
+// }
 
 //   enemyCollision=()=>{
 //     if(this.x + this.w >= gameBoxNode.offsetWidth){
