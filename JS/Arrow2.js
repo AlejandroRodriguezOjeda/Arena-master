@@ -1,4 +1,4 @@
-class Arrow{
+class Arrow2{
     constructor(){
 
         this.node = document.createElement("img")
@@ -7,8 +7,8 @@ class Arrow{
 
 
 
-    this.x = 0;
-    this.y = 0;
+    this.x = 500;
+    this.y = 700;
     this.w = 40;
     this.h = 40;
     this.speedX = 2;
@@ -22,14 +22,14 @@ class Arrow{
     }
 
       SmoothMovement = () =>{
-        this.y += 2
-        this.updatePosition()
+        this.y -= 2
+        this.updatePosition2()
       }
 
-    updatePosition = (enemyX) => {
+    updatePosition2 = (enemy2X) => {
         this.x += this.speedX;
         this.y += this.speedY;
-        this.node.style.left = `${enemyX}px`;
+        this.node.style.left = `${enemy2X}px`;
         this.node.style.top = `${this.y}px`;
       };
 

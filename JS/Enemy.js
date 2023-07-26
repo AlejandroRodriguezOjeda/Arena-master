@@ -11,6 +11,7 @@ class Enemy {
 
     this.enemyMovementSpeed = 2;
     this.isEnemyMovingRight = false;
+    // this.isFlipped = isFlipped;
     // this.isEnemyMovingLeft = true;
     this.bounceDirection();
 
@@ -21,6 +22,7 @@ class Enemy {
     this.node.style.left = `${this.x}px`;
 
     // this.shootArrows = this.shootArrows.bind(this)
+
   
 }
 

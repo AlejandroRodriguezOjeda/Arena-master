@@ -10,8 +10,8 @@ class Enemy2 {
       this.h = 100;
   
       this.enemyMovementSpeed = 2;
-      this.isEnemyMovingRight = false;
-      // this.isEnemyMovingLeft = true;
+      this.isEnemyMovingRight = true;
+    //   this.isEnemyMovingLeft = true;
       this.bounceDirection();
   
       this.node.style.width = `${this.w}px`;
@@ -23,23 +23,31 @@ class Enemy2 {
       // this.shootArrows = this.shootArrows.bind(this)
     
   }
-  
-    enemyMovement = ()=>{
-      if(this.isEnemyMovingRight === true){
-          this.x += this.enemyMovementSpeed
-      }else{
-          this.x -= this.enemyMovementSpeed
-      }
-      this.node.style.left = `${this.x}px`;
-  
-      if (this.x <= 0|| this.x + this.w >= gameBoxNode.clientWidth){
-          this.bounceDirection();
-      }
+  enemy2Movement = () => {
+    if (this.isEnemyMovingRight === true) {
+      this.x += this.enemyMovementSpeed;
+    } else {
+      this.x -= this.enemyMovementSpeed;
     }
+    this.node.style.left = `${this.x}px`;
+
+    if (this.x <= 0) { 
+      this.isEnemyMovingRight = true; 
+    } else if (this.x + this.w >= gameBoxNode.clientWidth) { 
+      this.isEnemyMovingRight = false;
+    }
+  }
+        
+        
+        
+    //     this.x + this.w >= gameBoxNode.clientWidth){
+    //       this.bounceDirection();
+    //   }
+    // }
   
     bounceDirection(){
       this.isEnemyMovingRight = !this.isEnemyMovingRight;
-      // this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
+    //   this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
     }
   
     

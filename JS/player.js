@@ -11,7 +11,7 @@ this.y = 400;
 this.w = 60;
 this.h = 60;
 
-this.movementSpeed = 2;
+this.movementSpeed = 5;
 this.isPlayermovingRight = false;
 this.isPlayermovingLeft = false;
 this.isPlayermovingUp = false;
