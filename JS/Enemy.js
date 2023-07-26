@@ -42,31 +42,7 @@ class Enemy {
     // this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
   }
 
-
-//   shootArrows = () =>{
-//     const numberOfArrows = 5;
-//     const ArrowSpeed = 5;
-//     const ArrowSpacing = this.w / (numberOfArrows - 1);
-//     let startX = this.x + this.w / 2 - (ArrowSpacing * (numberOfArrows - 1)) / 2;
+  
 
 
-// for (let i = 0; i < numberOfArrows; i++) {
-//     const arrow = new Arrow();
-//     arrow.x = startX + i * ArrowSpacing;
-//     arrow.y = this.y + this.h / 2 - arrow.h / 2;
-//     arrow.speedX = ArrowSpeed;
-//     arrow.speedY = 0;
-//     gameBoxNode.appendChild(arrow.node);
-
-// }
-// }
-
-//   enemyCollision=()=>{
-//     if(this.x + this.w >= gameBoxNode.offsetWidth){
-//         console.log("enemy se ha pegado")
-//         this.isEnemyMovingRight = false;
-//     }else if (this.x < 0){
-//         this.isEnemyMovingRight = true
-//     }
-//   }
 }

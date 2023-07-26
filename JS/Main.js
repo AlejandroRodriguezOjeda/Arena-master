@@ -11,6 +11,7 @@ let gameObj;
 function startGame(){
     splashScreenNode.style.display = "none"
     gameScreenNode.style.display = "flex"
+    // restartBtnNode.style.display = "none"
 
     
     gameObj = new Game()
