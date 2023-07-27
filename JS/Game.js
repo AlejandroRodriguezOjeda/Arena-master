@@ -3,21 +3,47 @@ class Game {
     this.player = new Player();
     this.enemy = new Enemy();
     this.enemy2 = new Enemy2();
-  
+
+    this.timer = 0;
+    this.frecuenciaMin = 20;
+    this.frecuenciaMax = 120;
+
+    this.timedPassed = 0;
+    this.timeLimit = 60000;
+    this.intervalID = null;
+
     this.arrowArr = [];
     this.arrowArr2 = [];
-    
+
+    this.coinsArr = []
+
     this.frames = 0;
     this.isGameOn = true;
     this.PreviousGame = null;
+
+    this.timerDisplay = document.getElementById('timer');
+
   }
   //pantalla de Game over
 
   gameOver = () => {
     this.isGameOn = false;
+    
     gameScreenNode.style.display = "none";
     gameoverScreenNode.style.display = "flex";
   };
+
+// pantalla de victoria :)
+
+  checkIfVictory = () =>{
+    if(this.timedPassed >= this.timeLimit){
+      this.isGameOn = false;
+    
+      gameScreenNode.style.display = "none";
+      gameoverScreenNode.style.display = "none"
+      victoryScreenNode.style.display = "flex";
+    }
+  }
 
   //collision del jugador con el suelo Y el techo para tener un game over
 
@@ -30,6 +56,7 @@ class Game {
       this.gameOver();
     }
   };
+
 
   //collision del player con el enemigo
 
@@ -53,8 +80,7 @@ class Game {
     }
   };
 
-
- // borra flechas despues de que salgan de la pantalla
+  // borra flechas despues de que salgan de la pantalla
   arrowsDesaparecen = () => {
     if (this.arrowArr[0].y > 900) {
       this.arrowArr[0].node.remove();
@@ -68,57 +94,136 @@ class Game {
       this.arrowArr2.shift();
     }
   };
-//donde se spawnean las flechas
+
+  //donde se spawnean las flechas
+
   arrowsAparecen = () => {
-    if (this.arrowArr.length === 0 || this.frames % 120 === 0) {
-      
+    let frecuenciaArrow = Math.max(
+      this.frecuenciaMax - Math.floor(this.timer/60),
+      this.frecuenciaMin
+    )
+    if (this.arrowArr.length === 0 || this.frames % frecuenciaArrow === 0) {
       let nuevaArrow = new Arrow();
-      nuevaArrow.updatePosition(this.enemy.x + this.enemy.w / 2 - nuevaArrow.w / 2);
-      
+      nuevaArrow.updatePosition(
+        this.enemy.x + this.enemy.w / 2 - nuevaArrow.w / 2
+      );
+
       this.arrowArr.push(nuevaArrow);
 
-      console.log(this.arrowArr);
+      
     }
-
-    
   };
 
   arrowsAparecen2 = () => {
-    if (this.arrowArr2.length === 0 || this.frames % 120 === 0) {
+    let frecuenciaArrow = Math.max(
+      this.frecuenciaMax - Math.floor(this.timer/60),
+      this.frecuenciaMin
+    )
+    if (this.arrowArr2.length === 0 || this.frames % frecuenciaArrow === 0) {
       let nuevaArrow2 = new Arrow2();
-      
-      nuevaArrow2.updatePosition2(this.enemy2.x + this.enemy2.w / 2 - nuevaArrow2.w / 2);
-      
-      nuevaArrow2.speedY = -5; // Adjust this value for the desired arrow speed
-      
+
+      nuevaArrow2.updatePosition2(
+        this.enemy2.x + this.enemy2.w / 2 - nuevaArrow2.w / 2
+      );
+
+      // nuevaArrow2.speedY = -5; // Aqui el valor de la velocidad de las arrows
+
       this.arrowArr2.push(nuevaArrow2);
-      console.log(this.arrowArr2);
+      
     }
+  };
+
+  //Monedas para pillar
+
+  coinsAparecen = () => {
+    if(this.coinsArr.length === 0 || this.frames % 120 === 0){
+      let randomPositionY = Math.floor(Math.random() * 800)
+
+      let newCoin = new Coins (randomPositionY,true)
+      this.coinsArr.push(newCoin)
+    }
+
   }
+//collision de monedas con jugador
+  collisionCoinswWithPLayer = () => {
+    this.coinsArr.forEach((cadaCoin,index) => {
+       if (
+        this.player.x < cadaCoin.x + cadaCoin.w &&
+        this.player.x + this.player.w > cadaCoin.x &&
+        this.player.y < cadaCoin.y + cadaCoin.h &&
+        this.player.y + this.player.h > cadaCoin.y
+      ) {
+       this.coinsArr.splice(index, 1)
+       
+       cadaCoin.node.remove()
+      }
+      
+    });
+  };
 
-
-
-
-  // Aqui la colision de la flecha con el jugador
+  // Aqui la colision de la flecha con el jugador ==== AUNQUE  no me estan colisionando bien con el objeto
 
   collisionArrowWithPLayer = () => {
-    this.arrowArr.forEach((cadaArrow) =>{
-    if (
-      this.player.x < cadaArrow.x + cadaArrow.w &&
-      this.player.x + this.player.w > cadaArrow.x &&
-      this.player.y < cadaArrow.y + cadaArrow.h &&
-      this.player.y + this.player.h > cadaArrow.y
-    ) {
-      this.gameOver();
-    }
-    console.log("me has dao")
-  })
+    this.arrowArr.forEach((cadaArrow) => {
 
-  }
+      
+      if (
+        this.player.x < cadaArrow.x + cadaArrow.w &&
+        this.player.x + this.player.w > cadaArrow.x &&
+        this.player.y < cadaArrow.y + cadaArrow.h &&
+        this.player.y + this.player.h > cadaArrow.y
+      ) {
+        this.gameOver();
+      }
+      
+    });
+  };
 
+  collisionArrowWithPLayer2 = () => {
+    this.arrowArr2.forEach((cadaArrow2) => {
+      if (
+        this.player.x < cadaArrow2.x + cadaArrow2.w &&
+        this.player.x + this.player.w > cadaArrow2.x &&
+        this.player.y < cadaArrow2.y + cadaArrow2.h &&
+        this.player.y + this.player.h > cadaArrow2.y
+      ) {
+        this.gameOver();
+      }
+      
+    });
+  };
+
+
+  //AQUI el timer 
+
+startTimer = () =>{
+  this.timedPassed = 0;
+  this.timerInterval = setInterval(()=>{
+    this.timedPassed += 1000;
+    this.printTimeCallback(this.getTime())
+      this.checkIfVictory()
+  },1000)
+}
+
+stopTimer = () => {
+  clearInterval(this.timerInterval);
+}
+
+getTime = () => {
+  return Math.max(0,this.timeLimit - this.timedPassed)
+}
+printTimeCallback = (remainingTime) => {
+  const minutes = Math.floor(remainingTime / 60000);
+  const seconds = Math.floor((remainingTime % 60000) / 1000);
+  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  this.timerDisplay.textContent = "Time remaining: " + formattedTime;
+}
 
   gameLoop = () => {
     this.frames++;
+    this.timer++;
+
+     // Add this line to start the timer when the game starts
 
     this.player.updatePosition();
     this.enemy.enemyMovement();
@@ -126,20 +231,29 @@ class Game {
     this.collisionPlayerWithEnemy();
     this.arrowsAparecen();
     this.arrowsDesaparecen();
-     this.arrowsAparecen2()
-    this.arrowsDesaparecen2()
+    this.arrowsAparecen2();
+    this.arrowsDesaparecen2();
     this.collisionArrowWithPLayer();
-    
+    this.collisionArrowWithPLayer2()
+    this.checkIfVictory();
+    // this.updateTimerDisplay()
     this.enemy2.enemy2Movement();
-   
+    this.coinsAparecen();
+    this.collisionCoinswWithPLayer();
+    
 
     this.arrowArr.forEach((cadaArrow) => {
       cadaArrow.SmoothMovement();
     });
 
     this.arrowArr2.forEach((cadaArrow2) => {
-      cadaArrow2.SmoothMovement()
+      cadaArrow2.SmoothMovement();
+    });
+
+    this.coinsArr.forEach((cadaCoin) =>{
+      cadaCoin.SmoothMovement()
     })
+
 
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);

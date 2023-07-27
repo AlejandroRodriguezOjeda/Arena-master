@@ -4,6 +4,8 @@ const splashScreenNode = document.querySelector("#splash-screen")
 const gameScreenNode = document.querySelector("#game-Screen")
 const gameBoxNode = document.querySelector("#game-Box")
 const gameoverScreenNode = document.querySelector("#gameover-screen")
+const victoryScreenNode = document.querySelector("#victory-Screen")
+const victoryBtnNode = document.querySelector("#restart-btn2")
 
 let gameObj;
 // let isGameOn = false
@@ -12,6 +14,8 @@ function startGame(){
     splashScreenNode.style.display = "none"
     gameScreenNode.style.display = "flex"
     // restartBtnNode.style.display = "none"
+    gameoverScreenNode.style.display = "none"
+    victoryScreenNode.style.display = "none"
 
     
     gameObj = new Game()
@@ -55,10 +59,19 @@ function startGame(){
             gameObj.player.isPlayermovingDown = false;
         }
 
+        // setInterval(updateTime,1000);
+        // requestAnimationFrame(gameObj.gameLoop);
+
       });
+
     
 }
 
+// function updateTime() {
+//   if (gameObj && gameObj.isGameOn) {
+//     gameObj.checkIfVictory();
+//   }
+// }
 
 
 // event listener de los botones
@@ -68,3 +81,9 @@ restartBtnNode.addEventListener("click",()=>{
    gameBoxNode.innerHTML = '';
    startGame();
 })
+
+victoryBtnNode.addEventListener("click",()=>{
+  gameBoxNode.innerHTML = ''
+  startGame()
+})
+
