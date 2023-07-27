@@ -15,35 +15,34 @@ class Game {
     this.arrowArr = [];
     this.arrowArr2 = [];
 
-    this.coinsArr = []
+    this.coinsArr = [];
 
     this.frames = 0;
     this.isGameOn = true;
     this.PreviousGame = null;
 
-    this.timerDisplay = document.getElementById('timer');
-
+    this.timerDisplay = document.getElementById("timer");
   }
   //pantalla de Game over
 
   gameOver = () => {
     this.isGameOn = false;
-    
+
     gameScreenNode.style.display = "none";
     gameoverScreenNode.style.display = "flex";
   };
 
-// pantalla de victoria :)
+  // pantalla de victoria :)
 
-  checkIfVictory = () =>{
-    if(this.timedPassed >= this.timeLimit){
+  checkIfVictory = () => {
+    if (this.timedPassed >= this.timeLimit) {
       this.isGameOn = false;
-    
+
       gameScreenNode.style.display = "none";
-      gameoverScreenNode.style.display = "none"
+      gameoverScreenNode.style.display = "none";
       victoryScreenNode.style.display = "flex";
     }
-  }
+  };
 
   //collision del jugador con el suelo Y el techo para tener un game over
 
@@ -56,7 +55,6 @@ class Game {
       this.gameOver();
     }
   };
-
 
   //collision del player con el enemigo
 
@@ -82,14 +80,14 @@ class Game {
 
   // borra flechas despues de que salgan de la pantalla
   arrowsDesaparecen = () => {
-    if (this.arrowArr[0].y > 900) {
+    if (this.arrowArr[0] > 900) {
       this.arrowArr[0].node.remove();
       this.arrowArr.shift();
     }
   };
 
   arrowsDesaparecen2 = () => {
-    if (this.arrowArr2[0].y < -900) {
+    if (this.arrowArr2[0] < -900) {
       this.arrowArr2[0].node.remove();
       this.arrowArr2.shift();
     }
@@ -99,9 +97,9 @@ class Game {
 
   arrowsAparecen = () => {
     let frecuenciaArrow = Math.max(
-      this.frecuenciaMax - Math.floor(this.timer/60),
+      this.frecuenciaMax - Math.floor(this.timer / 60),
       this.frecuenciaMin
-    )
+    );
     if (this.arrowArr.length === 0 || this.frames % frecuenciaArrow === 0) {
       let nuevaArrow = new Arrow();
       nuevaArrow.updatePosition(
@@ -109,16 +107,14 @@ class Game {
       );
 
       this.arrowArr.push(nuevaArrow);
-
-      
     }
   };
 
   arrowsAparecen2 = () => {
     let frecuenciaArrow = Math.max(
-      this.frecuenciaMax - Math.floor(this.timer/60),
+      this.frecuenciaMax - Math.floor(this.timer / 60),
       this.frecuenciaMin
-    )
+    );
     if (this.arrowArr2.length === 0 || this.frames % frecuenciaArrow === 0) {
       let nuevaArrow2 = new Arrow2();
 
@@ -129,44 +125,48 @@ class Game {
       // nuevaArrow2.speedY = -5; // Aqui el valor de la velocidad de las arrows
 
       this.arrowArr2.push(nuevaArrow2);
-      
     }
   };
 
   //Monedas para pillar
 
   coinsAparecen = () => {
-    if(this.coinsArr.length === 0 || this.frames % 120 === 0){
-      let randomPositionY = Math.floor(Math.random() * 800)
+    if (this.coinsArr.length === 0 || this.frames % 120 === 0) {
+      let randomPositionY = Math.floor(Math.random() * 800);
 
-      let newCoin = new Coins (randomPositionY,true)
-      this.coinsArr.push(newCoin)
+      let newCoin = new Coins(randomPositionY, true);
+      this.coinsArr.push(newCoin);
     }
-
-  }
-//collision de monedas con jugador
+  };
+  //collision de monedas con jugador
   collisionCoinswWithPLayer = () => {
-    this.coinsArr.forEach((cadaCoin,index) => {
-       if (
+    this.coinsArr.forEach((cadaCoin, index) => {
+      if (
         this.player.x < cadaCoin.x + cadaCoin.w &&
         this.player.x + this.player.w > cadaCoin.x &&
         this.player.y < cadaCoin.y + cadaCoin.h &&
         this.player.y + this.player.h > cadaCoin.y
       ) {
-       this.coinsArr.splice(index, 1)
-       
-       cadaCoin.node.remove()
+        this.coinsArr.splice(index, 1);
+
+        cadaCoin.node.remove();
       }
-      
     });
   };
+
+  // borrar coins si salen de la pantalla
+
+  coinsDesaparecen = () => {
+    if (this.coinsArr[0] < -900) {
+      this.coinsArr[0].node.remove();
+      this.coinsArr.shift();
+    }
+  }
 
   // Aqui la colision de la flecha con el jugador ==== AUNQUE  no me estan colisionando bien con el objeto
 
   collisionArrowWithPLayer = () => {
     this.arrowArr.forEach((cadaArrow) => {
-
-      
       if (
         this.player.x < cadaArrow.x + cadaArrow.w &&
         this.player.x + this.player.w > cadaArrow.x &&
@@ -175,7 +175,6 @@ class Game {
       ) {
         this.gameOver();
       }
-      
     });
   };
 
@@ -189,41 +188,23 @@ class Game {
       ) {
         this.gameOver();
       }
-      
     });
   };
 
+  //AQUI el timer
 
-  //AQUI el timer 
-
-startTimer = () =>{
-  this.timedPassed = 0;
-  this.timerInterval = setInterval(()=>{
-    this.timedPassed += 1000;
-    this.printTimeCallback(this.getTime())
-      this.checkIfVictory()
-  },1000)
-}
-
-stopTimer = () => {
-  clearInterval(this.timerInterval);
-}
-
-getTime = () => {
-  return Math.max(0,this.timeLimit - this.timedPassed)
-}
-printTimeCallback = (remainingTime) => {
-  const minutes = Math.floor(remainingTime / 60000);
-  const seconds = Math.floor((remainingTime % 60000) / 1000);
-  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-  this.timerDisplay.textContent = "Time remaining: " + formattedTime;
-}
+  startTimer = () => {
+    this.timedPassed = 0;
+    this.timerInterval = setInterval(() => {
+      this.timedPassed += 1000;
+    }
+    )}
 
   gameLoop = () => {
     this.frames++;
     this.timer++;
 
-     // Add this line to start the timer when the game starts
+    // Add this line to start the timer when the game starts
 
     this.player.updatePosition();
     this.enemy.enemyMovement();
@@ -234,13 +215,12 @@ printTimeCallback = (remainingTime) => {
     this.arrowsAparecen2();
     this.arrowsDesaparecen2();
     this.collisionArrowWithPLayer();
-    this.collisionArrowWithPLayer2()
+    this.collisionArrowWithPLayer2();
     this.checkIfVictory();
-    // this.updateTimerDisplay()
     this.enemy2.enemy2Movement();
     this.coinsAparecen();
     this.collisionCoinswWithPLayer();
-    
+    this.coinsDesaparecen();
 
     this.arrowArr.forEach((cadaArrow) => {
       cadaArrow.SmoothMovement();
@@ -250,10 +230,9 @@ printTimeCallback = (remainingTime) => {
       cadaArrow2.SmoothMovement();
     });
 
-    this.coinsArr.forEach((cadaCoin) =>{
-      cadaCoin.SmoothMovement()
-    })
-
+    this.coinsArr.forEach((cadaCoin) => {
+      cadaCoin.SmoothMovement();
+    });
 
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);

@@ -8,7 +8,7 @@ class Arrow {
     this.y = 0;
     this.w = 40;
     this.h = 40;
-    this.speedX = 2;
+    // this.speedX = 2;
     this.speedY = 5;
 
     this.node.style.width = `${this.w}px`;
