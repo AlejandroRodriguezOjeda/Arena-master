@@ -167,7 +167,7 @@ class Game {
     }
   }
 
-  // Aqui la colision de la flecha con el jugador ==== AUNQUE  no me estan colisionando bien con el objeto
+  // Aqui la colision de la flecha con el jugador ==== AUNQUE  no me estan colisionando bien tbh
 
   collisionArrowWithPLayer = () => {
     this.arrowArr.forEach((cadaArrow) => {
@@ -204,16 +204,13 @@ class Game {
     this.timedPassed = 0;
     this.timerInterval = setInterval(() => {
       this.timedPassed += 1000;
-
-      // Calculate remaining time in seconds
       const remainingSeconds = Math.max(0, Math.ceil((this.timeLimit - this.timedPassed) / 1000));
 
-      // Format the remaining time as "mm:ss"
       const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
       const seconds = String(remainingSeconds % 60).padStart(2, '0');
       const formattedTime = `${minutes}:${seconds}`;
 
-      // Update the timer display element
+      // Updatea el timer
       this.timerDisplay.textContent = formattedTime;
 
     }, 1000);
@@ -227,7 +224,6 @@ class Game {
     this.frames++;
     this.timer--;
 
-    // Add this line to start the timer when the game starts
 
     this.player.updatePosition();
     this.enemy.enemyMovement();

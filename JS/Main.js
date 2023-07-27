@@ -20,7 +20,7 @@ function startGame(){
     
     gameObj = new Game() 
     gameObj.startTimer()
-    gameObj.timedPassed =0;
+    gameObj.timedPassed = 0;
     gameObj.gameLoop()
     // isGameOn = true;
    
