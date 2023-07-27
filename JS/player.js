@@ -8,8 +8,8 @@ gameBoxNode.append(this.node)
 
 this.x = 275;
 this.y = 400;
-this.w = 60;
-this.h = 60;
+this.w = 50;
+this.h = 50;
 
 this.movementSpeed = 5;
 this.isPlayermovingRight = false;

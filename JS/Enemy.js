@@ -54,7 +54,7 @@ class Enemy2 {
     this.w = 100;
     this.h = 100;
 
-    this.enemyMovementSpeed = 2;
+    this.enemyMovementSpeed = 3;
     this.isEnemyMovingRight = true;
     //   this.isEnemyMovingLeft = true;
     this.bounceDirection();
@@ -92,3 +92,5 @@ class Enemy2 {
     //   this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
   }
 }
+
+

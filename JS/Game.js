@@ -27,6 +27,7 @@ class Game {
 
   gameOver = () => {
     this.isGameOn = false;
+    this.stopTime()
 
     gameScreenNode.style.display = "none";
     gameoverScreenNode.style.display = "flex";
@@ -34,13 +35,18 @@ class Game {
 
   // pantalla de victoria :)
 
+  showVictory = () =>{
+    this.isGameOn = false;
+    this.stopTime()
+    gameScreenNode.style.display = "none";
+    gameoverScreenNode.style.display = "none";
+    victoryScreenNode.style.display = "flex";
+  };
+  
+
   checkIfVictory = () => {
     if (this.timedPassed >= this.timeLimit) {
-      this.isGameOn = false;
-
-      gameScreenNode.style.display = "none";
-      gameoverScreenNode.style.display = "none";
-      victoryScreenNode.style.display = "flex";
+      this.showVictory()
     }
   };
 
@@ -102,10 +108,7 @@ class Game {
     );
     if (this.arrowArr.length === 0 || this.frames % frecuenciaArrow === 0) {
       let nuevaArrow = new Arrow();
-      nuevaArrow.updatePosition(
-        this.enemy.x + this.enemy.w / 2 - nuevaArrow.w / 2
-      );
-
+      nuevaArrow.updatePosition(this.enemy.x + this.enemy.w / 2 - nuevaArrow.w / 2,this.enemy.x);
       this.arrowArr.push(nuevaArrow);
     }
   };
@@ -151,6 +154,7 @@ class Game {
 
         cadaCoin.node.remove();
       }
+      
     });
   };
 
@@ -177,6 +181,9 @@ class Game {
       }
     });
   };
+  
+
+
 
   collisionArrowWithPLayer2 = () => {
     this.arrowArr2.forEach((cadaArrow2) => {
@@ -197,12 +204,28 @@ class Game {
     this.timedPassed = 0;
     this.timerInterval = setInterval(() => {
       this.timedPassed += 1000;
-    }
-    )}
+
+      // Calculate remaining time in seconds
+      const remainingSeconds = Math.max(0, Math.ceil((this.timeLimit - this.timedPassed) / 1000));
+
+      // Format the remaining time as "mm:ss"
+      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
+      const seconds = String(remainingSeconds % 60).padStart(2, '0');
+      const formattedTime = `${minutes}:${seconds}`;
+
+      // Update the timer display element
+      this.timerDisplay.textContent = formattedTime;
+
+    }, 1000);
+  };
+
+  stopTime = () =>{
+    clearInterval(this.timerInterval)
+  }
 
   gameLoop = () => {
     this.frames++;
-    this.timer++;
+    this.timer--;
 
     // Add this line to start the timer when the game starts
 
@@ -222,6 +245,12 @@ class Game {
     this.collisionCoinswWithPLayer();
     this.coinsDesaparecen();
 
+
+    if (this.remainingTime <= 0) {
+      this.isGameOver = true;
+      this.showVictory();
+    }
+
     this.arrowArr.forEach((cadaArrow) => {
       cadaArrow.SmoothMovement();
     });
@@ -233,6 +262,8 @@ class Game {
     this.coinsArr.forEach((cadaCoin) => {
       cadaCoin.SmoothMovement();
     });
+
+  
 
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);

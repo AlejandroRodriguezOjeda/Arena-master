@@ -18,9 +18,12 @@ function startGame(){
     victoryScreenNode.style.display = "none"
 
     
-    gameObj = new Game()
+    gameObj = new Game() 
+    gameObj.startTimer()
+    gameObj.timedPassed =0;
     gameObj.gameLoop()
     // isGameOn = true;
+   
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "ArrowLeft") {
