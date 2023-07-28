@@ -8,8 +8,8 @@ gameBoxNode.append(this.node)
 
 this.x = 275;
 this.y = 400;
-this.w = 100;
-this.h = 100;
+this.w = 70;
+this.h = 70;
 
 this.coinsCollected = 0
 
