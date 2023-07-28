@@ -1,13 +1,13 @@
 class Enemy {
   constructor() {
     this.node = document.createElement("img");
-    this.node.src = "./images/sprite-placeholder.jpg";
+    this.node.src = "./images/archer2.png";
     gameBoxNode.append(this.node);
 
     this.x = 0;
     this.y = 0;
-    this.w = 100;
-    this.h = 100;
+    this.w = 70;
+    this.h = 70;
 
     this.enemyMovementSpeed = 4;
     this.isEnemyMovingRight = false;
@@ -20,6 +20,7 @@ class Enemy {
     this.node.style.position = "absolute";
     this.node.style.top = `${this.y}px`;
     this.node.style.left = `${this.x}px`;
+    
 
     // this.shootArrows = this.shootArrows.bind(this)
   }
@@ -46,13 +47,13 @@ class Enemy {
 class Enemy2 {
   constructor() {
     this.node = document.createElement("img");
-    this.node.src = "./images/sprite-placeholder.jpg";
+    this.node.src = "./images/archer.png";
     gameBoxNode.append(this.node);
 
     this.x = 500;
     this.y = 700;
-    this.w = 100;
-    this.h = 100;
+    this.w = 70;
+    this.h = 70;
 
     this.enemyMovementSpeed = 3;
     this.isEnemyMovingRight = true;

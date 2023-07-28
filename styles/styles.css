@@ -3,13 +3,14 @@ body {
     background-color: black;
   }
   
-  #start-btn, #restart-btn {
-    background-color: red;
-    color: white;
-    padding: 20px;
-    font-size: 20px;
-    margin-top: 40px;
-    border-radius: 10px; 
+  #start-btn, #restart-btn, #restart-btn2 {
+    background-color: transparent;
+    color: transparent;
+    padding: 1px;
+    border: none;
+    font-size: 5px;
+    margin-top: 5px;
+    border-radius: 5px; 
     
   }
   
@@ -30,7 +31,7 @@ body {
     position: relative; 
     user-select: none; 
 
-    background-image: url("../images/arena.png");
+    background-image: url("../images/background.png");
     background-position: center;
     background-size: cover;
   
@@ -56,3 +57,31 @@ body {
   #game-Screen, #gameover-screen, #victory-Screen{
     display: none;
   }
+
+
+  #victory-Screen #high-score{
+    font-size: 24px;
+    font-weight: bold;
+    color: yellow;
+    margin-top: 10px;
+  }
+
+  #victory-Screen p{
+    font-size: 18px;
+    color: yellow;
+    font-weight: bold;
+  }
+
+  /* #gameover-screen #high-score{
+    font-size: 24px;
+    color: bisque;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  #gameover-screen p{
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+  } */

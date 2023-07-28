@@ -3,13 +3,15 @@ class Player {
 constructor(){
 
 this.node = document.createElement("img");
-this.node.src = "./images/pixel.png"
+this.node.src = "./images/player.png"
 gameBoxNode.append(this.node)
 
 this.x = 275;
 this.y = 400;
-this.w = 50;
-this.h = 50;
+this.w = 100;
+this.h = 100;
+
+this.coinsCollected = 0
 
 this.movementSpeed = 5;
 this.isPlayermovingRight = false;

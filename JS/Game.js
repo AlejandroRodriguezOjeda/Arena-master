@@ -3,10 +3,11 @@ class Game {
     this.player = new Player();
     this.enemy = new Enemy();
     this.enemy2 = new Enemy2();
+    this.player.coinsCollected = 0
 
     this.timer = 0;
     this.frecuenciaMin = 20;
-    this.frecuenciaMax = 120;
+    this.frecuenciaMax = 80;
 
     this.timedPassed = 0;
     this.timeLimit = 60000;
@@ -22,6 +23,19 @@ class Game {
     this.PreviousGame = null;
 
     this.timerDisplay = document.getElementById("timer");
+  }
+
+  UpdateHighScore = () =>{
+    const currentScore = this.player.coinsCollected;
+    let highScore = localStorage.getItem("highScore")
+    
+    if(!highScore || currentScore > highScore){
+      localStorage.setItem("highScore",currentScore)
+      highScore = currentScore;
+    }
+
+    const highScoreDisplay = document.getElementById("high-score")
+    highScoreDisplay.textContent = highScore
   }
   //pantalla de Game over
 
@@ -153,9 +167,13 @@ class Game {
         this.coinsArr.splice(index, 1);
 
         cadaCoin.node.remove();
+
+        this.player.coinsCollected++
       }
       
     });
+
+    this.UpdateHighScore()
   };
 
   // borrar coins si salen de la pantalla
@@ -182,6 +200,8 @@ class Game {
     });
   };
   
+
+
 
 
 
@@ -217,18 +237,23 @@ class Game {
   };
 
   stopTime = () =>{
+    clearInterval(this.intervalID)
     clearInterval(this.timerInterval)
   }
 
   gameLoop = () => {
     this.frames++;
-    this.timer--;
+    this.timer++;
 
 
     this.player.updatePosition();
     this.enemy.enemyMovement();
-    this.collisionFloor();
+   this.enemy2.enemy2Movement();
     this.collisionPlayerWithEnemy();
+    // this.collisionArrowWithPLayer();
+    // this.collisionArrowWithPLayer2();
+     this.collisionFloor();
+
     this.arrowsAparecen();
     this.arrowsDesaparecen();
     this.arrowsAparecen2();
@@ -236,10 +261,11 @@ class Game {
     this.collisionArrowWithPLayer();
     this.collisionArrowWithPLayer2();
     this.checkIfVictory();
-    this.enemy2.enemy2Movement();
+    
     this.coinsAparecen();
     this.collisionCoinswWithPLayer();
     this.coinsDesaparecen();
+    // this.UpdateHighScore()
 
 
     if (this.remainingTime <= 0) {
@@ -264,5 +290,9 @@ class Game {
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
     }
+    
   };
 }
+
+
+

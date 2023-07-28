@@ -21,6 +21,9 @@ function startGame(){
     gameObj = new Game() 
     gameObj.startTimer()
     gameObj.timedPassed = 0;
+    const highScore = localStorage.getItem("highScore");
+    const highScoreDisplay = document.getElementById("high-score")
+    highScoreDisplay.textContent = highScore ? highScore : 0
     gameObj.gameLoop()
     // isGameOn = true;
    

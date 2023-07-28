@@ -9,39 +9,44 @@
   <body>
     <!--SPLASH SCREEN-->
     <div id="splash-screen" class="container">
-        <img src="" width="" alt="start screen">
-      <button id="start-btn">Begin!</button>
+      <img src="./images/arena-mast.png" height="800" alt="start screen" />
+      <button id="start-btn">
+        <img src="./images/START.png" width="500" alt="" />
+      </button>
     </div>
 
     <!--Game screen-->
     <div id="game-Screen" class="container">
-        <div id="timer-container">
-            <span id="timer">00:00</span>
-        </div>
-      <div id="game-Box">
-        
+      <div id="timer-container">
+        <span id="timer">00:00</span>
       </div>
+      <div id="game-Box"></div>
     </div>
 
     <!-- Victory screen -->
 
-<div id="victory-Screen" class="container">
-    <button id="restart-btn2">Play again?</button>
-</div>
+    <div id="victory-Screen" class="container">
+      <img src="./images/WIN.png" width="800" alt="" />
+      <p>High Score: <span id="high-score">0</span></p>
+      <button id="restart-btn2">
+        <img src="./images/play-again.png" width="600" alt="restart-btn" />
+      </button>
+    </div>
 
     <!-- Game over screen -->
     <div id="gameover-screen" class="container">
-      <button id="restart-btn">Play again?</button>
+      <img src="./images/you-lose.png" width="800" alt="" />
+      <!-- <p>High Score: <span id="high-score">0</span></p> -->
+      <button id="restart-btn">
+        <img src="./images/play-again.png" width="600" alt="restart-btn" />
+      </button>
     </div>
 
     <script src="./JS/Main.js"></script>
     <script src="./JS/Game.js"></script>
+    <script src="./JS/player.js"></script>
+    <script src="./JS/Enemy.js"></script>
     <script src="./JS/Arrow.js"></script>
     <script src="./JS/coins.js"></script>
-     <script src="./JS/player.js"></script>
-   
-    <script src="./JS/Enemy.js"></script>
-    
-    
   </body>
 </html>

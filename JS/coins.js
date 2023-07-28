@@ -6,8 +6,8 @@ class Coins{
   
       this.x = gameBoxNode.offsetWidth;
       this.y = posY;
-      this.w = 20;
-      this.h = 30;
+      this.w = 40;
+      this.h = 40;
     //   this.speedX = 5;
     //   this.speedY = 5;
   

@@ -1,15 +1,15 @@
 class Arrow {
-  constructor() {
+  constructor(enemyX) {
     this.node = document.createElement("img");
-    this.node.src = "./images/Arrow.png";
+    this.node.src = "./images/Arrow copy.png";
     gameBoxNode.append(this.node);
 
-    this.x = 0;
+    this.x = enemyX;
     this.y = 0;
-    this.w = 40;
+    this.w = 20;
     this.h = 40;
     this.speedX = 0;
-    this.speedY = 5;
+    this.speedY = 7;
 
     this.node.style.width = `${this.w}px`;
     this.node.style.height = `${this.h}px`;
@@ -20,12 +20,13 @@ class Arrow {
 
   SmoothMovement = () => {
     this.y += this.speedY;
-    this.updatePosition();
+    this.updatePosition(this.x);
   };
 
   updatePosition = (enemyX) => {
+    this.x = enemyX
     // this.x += this.speedX;
-    this.y += this.speedY;
+    // this.y += this.speedY;
     this.node.style.left = `${enemyX}px`;
     this.node.style.top = `${this.y}px`;
   };
@@ -33,17 +34,17 @@ class Arrow {
 }
 
 class Arrow2 {
-  constructor() {
+  constructor(enemy2X) {
     this.node = document.createElement("img");
     this.node.src = "./images/Arrow.png";
     gameBoxNode.append(this.node);
 
     this.x = 500;
     this.y = 700;
-    this.w = 40;
+    this.w = 20;
     this.h = 40;
     this.speedX = 2;
-    this.speedY = -5;
+    this.speedY = -6;
 
     this.node.style.width = `${this.w}px`;
     this.node.style.height = `${this.h}px`;
@@ -54,20 +55,16 @@ class Arrow2 {
 
   SmoothMovement = () => {
     this.y += this.speedY;
-    this.updatePosition2();
+    this.updatePosition2(this.x);
   };
 
   updatePosition2 = (enemy2X) => {
+    this.x = enemy2X
     // this.x += this.speedX;
     // this.y += this.speedY;
     this.node.style.left = `${enemy2X}px`;
     this.node.style.top = `${this.y}px`;
   };
 
-  // updatePositionY = (enemy2Y) => {
-  //     this.x += this.speedX;
-  //     this.y += this.speedY;
-  //     this.node.style.left = `${this.x}px`;
-  //     this.node.style.top = `${enemy2Y}px`;
-  //   };
+ 
 }
