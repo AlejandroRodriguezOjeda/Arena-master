@@ -24,13 +24,11 @@ class Arrow {
   };
 
   updatePosition = (enemyX) => {
-    this.x = enemyX
-    // this.x += this.speedX;
-    // this.y += this.speedY;
+    // calcula la posicion X del enemigo y dispara desde ahi :)
+    this.x = enemyX;
     this.node.style.left = `${enemyX}px`;
     this.node.style.top = `${this.y}px`;
   };
-
 }
 
 class Arrow2 {
@@ -59,12 +57,8 @@ class Arrow2 {
   };
 
   updatePosition2 = (enemy2X) => {
-    this.x = enemy2X
-    // this.x += this.speedX;
-    // this.y += this.speedY;
+    this.x = enemy2X;
     this.node.style.left = `${enemy2X}px`;
     this.node.style.top = `${this.y}px`;
   };
-
- 
 }

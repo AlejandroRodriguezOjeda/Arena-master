@@ -3,7 +3,7 @@ class Game {
     this.player = new Player();
     this.enemy = new Enemy();
     this.enemy2 = new Enemy2();
-    this.player.coinsCollected = 0
+    this.player.coinsCollected = 0;
 
     this.timer = 0;
     this.frecuenciaMin = 20;
@@ -13,35 +13,38 @@ class Game {
     this.timeLimit = 60000;
     this.intervalID = null;
 
+    //los arrays de flechas y monedas
     this.arrowArr = [];
     this.arrowArr2 = [];
-
     this.coinsArr = [];
 
     this.frames = 0;
     this.isGameOn = true;
     this.PreviousGame = null;
 
-    this.timerDisplay = document.getElementById("timer");
+    this.timerDisplay = document.getElementById("timer"); //para mostrar el timer
   }
 
-  UpdateHighScore = () =>{
+  //Aqui como actualizar el high score
+
+  UpdateHighScore = () => {
     const currentScore = this.player.coinsCollected;
-    let highScore = localStorage.getItem("highScore")
-    
-    if(!highScore || currentScore > highScore){
-      localStorage.setItem("highScore",currentScore)
+    let highScore = localStorage.getItem("highScore");
+
+    if (!highScore || currentScore > highScore) {
+      localStorage.setItem("highScore", currentScore);
       highScore = currentScore;
     }
 
-    const highScoreDisplay = document.getElementById("high-score")
-    highScoreDisplay.textContent = highScore
-  }
+    const highScoreDisplay = document.getElementById("high-score");
+    highScoreDisplay.textContent = highScore;
+  };
+
   //pantalla de Game over
 
   gameOver = () => {
     this.isGameOn = false;
-    this.stopTime()
+    this.stopTime();
 
     gameScreenNode.style.display = "none";
     gameoverScreenNode.style.display = "flex";
@@ -49,18 +52,19 @@ class Game {
 
   // pantalla de victoria :)
 
-  showVictory = () =>{
+  showVictory = () => {
     this.isGameOn = false;
-    this.stopTime()
+    this.stopTime();
     gameScreenNode.style.display = "none";
     gameoverScreenNode.style.display = "none";
     victoryScreenNode.style.display = "flex";
   };
-  
+
+  // checkea si se ha ganado
 
   checkIfVictory = () => {
     if (this.timedPassed >= this.timeLimit) {
-      this.showVictory()
+      this.showVictory();
     }
   };
 
@@ -117,12 +121,16 @@ class Game {
 
   arrowsAparecen = () => {
     let frecuenciaArrow = Math.max(
+      //Con esto es que pude implementar lo de que segun pase el tiempo vayan mas rapido
       this.frecuenciaMax - Math.floor(this.timer / 60),
       this.frecuenciaMin
     );
     if (this.arrowArr.length === 0 || this.frames % frecuenciaArrow === 0) {
       let nuevaArrow = new Arrow();
-      nuevaArrow.updatePosition(this.enemy.x + this.enemy.w / 2 - nuevaArrow.w / 2,this.enemy.x);
+      nuevaArrow.updatePosition(
+        this.enemy.x + this.enemy.w / 2 - nuevaArrow.w / 2,
+        this.enemy.x
+      );
       this.arrowArr.push(nuevaArrow);
     }
   };
@@ -139,8 +147,6 @@ class Game {
         this.enemy2.x + this.enemy2.w / 2 - nuevaArrow2.w / 2
       );
 
-      // nuevaArrow2.speedY = -5; // Aqui el valor de la velocidad de las arrows
-
       this.arrowArr2.push(nuevaArrow2);
     }
   };
@@ -155,7 +161,9 @@ class Game {
       this.coinsArr.push(newCoin);
     }
   };
+
   //collision de monedas con jugador
+
   collisionCoinswWithPLayer = () => {
     this.coinsArr.forEach((cadaCoin, index) => {
       if (
@@ -168,12 +176,11 @@ class Game {
 
         cadaCoin.node.remove();
 
-        this.player.coinsCollected++
+        this.player.coinsCollected++;
       }
-      
     });
 
-    this.UpdateHighScore()
+    this.UpdateHighScore();
   };
 
   // borrar coins si salen de la pantalla
@@ -183,9 +190,9 @@ class Game {
       this.coinsArr[0].node.remove();
       this.coinsArr.shift();
     }
-  }
+  };
 
-  // Aqui la colision de la flecha con el jugador ==== AUNQUE  no me estan colisionando bien tbh
+  // Aqui la colision de la flecha con el jugador
 
   collisionArrowWithPLayer = () => {
     this.arrowArr.forEach((cadaArrow) => {
@@ -199,11 +206,6 @@ class Game {
       }
     });
   };
-  
-
-
-
-
 
   collisionArrowWithPLayer2 = () => {
     this.arrowArr2.forEach((cadaArrow2) => {
@@ -218,41 +220,47 @@ class Game {
     });
   };
 
-  //AQUI el timer
+  //AQUI el timer del juego
 
   startTimer = () => {
+    //el timer ira tickeando hacia abajo hasta llegar a 0, entonces haciendo que ganes la partida
     this.timedPassed = 0;
     this.timerInterval = setInterval(() => {
       this.timedPassed += 1000;
-      const remainingSeconds = Math.max(0, Math.ceil((this.timeLimit - this.timedPassed) / 1000));
+      const remainingSeconds = Math.max(
+        0,
+        Math.ceil((this.timeLimit - this.timedPassed) / 1000)
+      );
 
-      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
-      const seconds = String(remainingSeconds % 60).padStart(2, '0');
+      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(
+        2,
+        "0"
+      );
+      const seconds = String(remainingSeconds % 60).padStart(2, "0");
       const formattedTime = `${minutes}:${seconds}`;
 
       // Updatea el timer
       this.timerDisplay.textContent = formattedTime;
-
     }, 1000);
   };
 
-  stopTime = () =>{
-    clearInterval(this.intervalID)
-    clearInterval(this.timerInterval)
-  }
+  stopTime = () => {
+    clearInterval(this.intervalID);
+    clearInterval(this.timerInterval);
+  };
+
+  //El gameloop
 
   gameLoop = () => {
     this.frames++;
     this.timer++;
 
-
     this.player.updatePosition();
     this.enemy.enemyMovement();
-   this.enemy2.enemy2Movement();
+    this.enemy2.enemy2Movement();
     this.collisionPlayerWithEnemy();
-    // this.collisionArrowWithPLayer();
-    // this.collisionArrowWithPLayer2();
-     this.collisionFloor();
+
+    this.collisionFloor();
 
     this.arrowsAparecen();
     this.arrowsDesaparecen();
@@ -261,12 +269,10 @@ class Game {
     this.collisionArrowWithPLayer();
     this.collisionArrowWithPLayer2();
     this.checkIfVictory();
-    
+
     this.coinsAparecen();
     this.collisionCoinswWithPLayer();
     this.coinsDesaparecen();
-    // this.UpdateHighScore()
-
 
     if (this.remainingTime <= 0) {
       this.isGameOver = true;
@@ -285,14 +291,8 @@ class Game {
       cadaCoin.SmoothMovement();
     });
 
-  
-
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
     }
-    
   };
 }
-
-
-

@@ -11,8 +11,7 @@ class Enemy {
 
     this.enemyMovementSpeed = 4;
     this.isEnemyMovingRight = false;
-    // this.isFlipped = isFlipped;
-    // this.isEnemyMovingLeft = true;
+
     this.bounceDirection();
 
     this.node.style.width = `${this.w}px`;
@@ -20,9 +19,6 @@ class Enemy {
     this.node.style.position = "absolute";
     this.node.style.top = `${this.y}px`;
     this.node.style.left = `${this.x}px`;
-    
-
-    // this.shootArrows = this.shootArrows.bind(this)
   }
 
   enemyMovement = () => {
@@ -40,7 +36,6 @@ class Enemy {
 
   bounceDirection() {
     this.isEnemyMovingRight = !this.isEnemyMovingRight;
-    // this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
   }
 }
 
@@ -57,7 +52,7 @@ class Enemy2 {
 
     this.enemyMovementSpeed = 3;
     this.isEnemyMovingRight = true;
-    //   this.isEnemyMovingLeft = true;
+
     this.bounceDirection();
 
     this.node.style.width = `${this.w}px`;
@@ -65,8 +60,6 @@ class Enemy2 {
     this.node.style.position = "absolute";
     this.node.style.top = `${this.y}px`;
     this.node.style.left = `${this.x}px`;
-
-    // this.shootArrows = this.shootArrows.bind(this)
   }
   enemy2Movement = () => {
     if (this.isEnemyMovingRight === true) {
@@ -83,15 +76,7 @@ class Enemy2 {
     }
   };
 
-  //     this.x + this.w >= gameBoxNode.clientWidth){
-  //       this.bounceDirection();
-  //   }
-  // }
-
   bounceDirection() {
     this.isEnemyMovingRight = !this.isEnemyMovingRight;
-    //   this.isEnemyMovingLeft = !this.isEnemyMovingLeft;
   }
 }
-
-
