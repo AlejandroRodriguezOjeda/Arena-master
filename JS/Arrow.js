@@ -7,7 +7,7 @@ class Arrow {
     this.x = enemyX;
     this.y = 0;
     this.w = 20;
-    this.h = 40;
+    this.h = 30;
     this.speedX = 0;
     this.speedY = 7;
 
@@ -42,7 +42,7 @@ class Arrow2 {
     this.x = 500;
     this.y = 700;
     this.w = 20;
-    this.h = 40;
+    this.h = 30;
     this.speedX = 2;
     this.speedY = -6;
 
