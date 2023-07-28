@@ -6,6 +6,7 @@ const gameBoxNode = document.querySelector("#game-Box")
 const gameoverScreenNode = document.querySelector("#gameover-screen")
 const victoryScreenNode = document.querySelector("#victory-Screen")
 const victoryBtnNode = document.querySelector("#restart-btn2")
+const backgroundMusic = document.getElementById("backgroundMusic");
 
 let gameObj;
 // let isGameOn = falses
@@ -16,6 +17,8 @@ function startGame(){
     // restartBtnNode.style.display = "none"
     gameoverScreenNode.style.display = "none"
     victoryScreenNode.style.display = "none"
+    backgroundMusic.volume = 0.5;
+    backgroundMusic.play()
 
     
     gameObj = new Game() 
@@ -92,4 +95,10 @@ victoryBtnNode.addEventListener("click",()=>{
   gameBoxNode.innerHTML = ''
   startGame()
 })
+
+
+volumeControl.addEventListener("input", () => {
+  const volume = volumeControl.value;
+  backgroundMusic.volume = volume;
+});
 
