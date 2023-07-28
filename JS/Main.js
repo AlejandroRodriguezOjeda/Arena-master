@@ -8,7 +8,7 @@ const victoryScreenNode = document.querySelector("#victory-Screen")
 const victoryBtnNode = document.querySelector("#restart-btn2")
 
 let gameObj;
-// let isGameOn = false
+// let isGameOn = falses
 
 function startGame(){
     splashScreenNode.style.display = "none"
